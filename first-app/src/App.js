@@ -7,7 +7,7 @@ function App() {
     <div className="container">
       {/* i am going to add an import here  with <Header />*/}
       <Header/>
-      <h2>Hello {name}</h2>
+      {/* <h2>Hello {name}</h2> */}
       
     </div>
   );
