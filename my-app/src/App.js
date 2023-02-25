@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import './App.css';
+import Person from './components/Person'
+
+//converted this to an arrow function in es6
+const App = () => {
+
+
+
+
+  var name = 'eddy';
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+      <header className='intro'>
+        <Person firstName={'eddy'} lastName={'vittini'} age={26}/>
+        <h1> Hello {name} welcome to using react</h1>
+
       </header>
+
+      {/* react fragment */}
+      <>
+        test
+      </>
     </div>
   );
 }
