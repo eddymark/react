@@ -1,30 +1,44 @@
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import searchIcon from './svg/search.svg'
+import MovieCard from './Components/MovieCard'
 
 
 const API_URL = 'http://www.omdbapi.com/?apikey=2cd05ad1'
-const movie1 = {
-  "Title": "White Chicks",
-  "Year": "2004",
-  "imdbID": "tt0381707",
-  "Type": "movie",
-  "Poster": "https://m.media-amazon.com/images/M/MV5BMTY3OTg2OTM3OV5BMl5BanBnXkFtZTYwNzY5OTA3._V1_SX300.jpg"
-}
+//this is a test of the 
+// const movie1 = {
+//   "Title": "White Chicks",
+//   "Year": "2004",
+//   "imdbID": "tt0381707",
+//   "Type": "movie",
+//   "Poster": "https://m.media-amazon.com/images/M/MV5BMTY3OTg2OTM3OV5BMl5BanBnXkFtZTYwNzY5OTA3._V1_SX300.jpg"
+// }
 const App = () => {
+  //sets the states for the movie object
+  const [movies, setMovies] = useState([]);
+  //sets the states for the search
+  const[searchTerm, setSearchTerm] = useState('');
 
   //gets the movie search query and set it to an array 
   const searchMovies = async (title) => {
     const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
-    console.log(data.Search);
-    console.log(title);
+    setMovies(data.Search)
+  }
+
+  //adding for the on enter 
+
+  const handleKeyDown=(event) =>  {
+    if (event.key === 'Enter') {
+      searchMovies(searchTerm);
+      console.log('Enter key pressed');
+    }
   }
 
 
   useEffect(() => {
-    searchMovies('white chicks')
+    searchMovies('avengers')
 
   }, []);
 
@@ -34,30 +48,37 @@ const App = () => {
 
       <div className="search">
         <input placeholder='Search for movies'
-          value='superman'
-          onChange={() => { }}>
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyDown}
+          >
 
         </input>
         <img src={searchIcon}
-          alt="search icon" 
-          onClick={() => { }}/>
-          
+          alt="search icon"
+          onClick={() => searchMovies(searchTerm) } 
+
+          />
+
       </div>
 
-      <div className="container">
-        <div className="movie">
-          <div>
-            <p>{movie1.Year}</p>
-          </div>
-          <div>
-            <img src={movie1.Poster !== 'N/A' ? movie1.Poster : 'https://placehold.jp/400x400.png'} alt='movie poster'/>
-          </div>
-          <div>
-            <span>{movie1.Type}</span>
-            <h3>{movie1.Title}</h3>
-          </div>
-        </div>
-      </div>
+      {
+        movies?.length > 0
+          ? (
+            <div className="container">
+              {movies.map((movie) => (
+                <MovieCard key={movie.imdbID} movie={movie} />
+              ))}
+            </div>
+          ) :
+          (
+            <div className="empty">
+              <h2>no movies found </h2>
+            </div>
+          )
+      }
+
+
 
     </div>
   )
