@@ -6,19 +6,12 @@ import MovieCard from './Components/MovieCard'
 
 
 const API_URL = 'http://www.omdbapi.com/?apikey=2cd05ad1'
-//this is a test of the 
-// const movie1 = {
-//   "Title": "White Chicks",
-//   "Year": "2004",
-//   "imdbID": "tt0381707",
-//   "Type": "movie",
-//   "Poster": "https://m.media-amazon.com/images/M/MV5BMTY3OTg2OTM3OV5BMl5BanBnXkFtZTYwNzY5OTA3._V1_SX300.jpg"
-// }
+
 const App = () => {
   //sets the states for the movie object
   const [movies, setMovies] = useState([]);
   //sets the states for the search
-  const[searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   //gets the movie search query and set it to an array 
   const searchMovies = async (title) => {
@@ -29,7 +22,7 @@ const App = () => {
 
   //adding for the on enter 
 
-  const handleKeyDown=(event) =>  {
+  const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       searchMovies(searchTerm);
       console.log('Enter key pressed');
@@ -51,14 +44,14 @@ const App = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyDown}
-          >
+        >
 
         </input>
         <img src={searchIcon}
           alt="search icon"
-          onClick={() => searchMovies(searchTerm) } 
+          onClick={() => searchMovies(searchTerm)}
 
-          />
+        />
 
       </div>
 
